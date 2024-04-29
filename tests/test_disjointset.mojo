@@ -44,23 +44,29 @@ fn test_add() raises:
     print("PASS")
 
 
+fn test_set_ids() raises:
+    print("test_set_ids: ", end="")
+    var d = DisjointSet(5)
+    var got = d.set_ids()
+    var want = List[Int](0, 1, 2, 3, 4)
+    assert_equal(len(got), len(want))
+    for i in range(len(got)):
+        assert_equal(got[i], want[i])
+    print("PASS")
+
+
 fn main() raises:
     test_can_init_without_size()
     test_can_init_with_specified_size()
     test_is_valid()
     test_add()
+    test_set_ids()
     print("All tests passed!")
 
 
 """ TODO: convert this to Mojo
 
 func TestDisjointSet(t *testing.T) {
-    t.Run("SetIDs", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        got := d.SetIDs()
-        want := []int{0, 1, 2, 3, 4}
-        assert.DeepEqual(t, got, want)
-    })
     t.Run("Union", func(t *testing.T) {
         d := NewDisjointSet(5)
         assert.Equal(t, d.Len(), 5)

@@ -65,20 +65,20 @@ struct DisjointSet(Sized):
 		self.sizes.append(1)
 		self.num_sets += 1
 		return id
+	
+	fn set_ids(self) -> List[Int]:
+		""" Returns a list of set IDs where each ID is the parent node. """
+		var res = List[Int]()
+		# TODO: change to use enumerate when available
+		#       for i, p in enumerate(self.parents):
+		# 	        if i == p:
+		for i in range(len(self.parents)):
+			if self.parents[i] == i:
+				res.append(i)
+		return res
 
 
 """ TODO: implement the rest of the DisjointSet class
-
-// SetIDs returns a list of set IDs where each ID is the parent node.
-func (d *DisjointSet) SetIDs() []int {
-	res := []int{}
-	for i, p := range d.parents {
-		if i == p {
-			res = append(res, i)
-		}
-	}
-	return res
-}
 
 // Find returns root element of set containing given element.
 func (d *DisjointSet) Find(id int) int {
