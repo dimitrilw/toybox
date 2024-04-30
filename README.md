@@ -18,3 +18,11 @@ aka "union find", aka "merge find", aka "merge set", aka "disjoint set union (DS
 ```mojo
 from toybox import DisjointSet
 ```
+
+## external dependencies
+
+Until Mojo has a package manager, this repository notes dependencies here.
+
+### quicksort.📦
+
+Source: https://github.com/mzaks/mojo-sort/tree/5b2aa6b436908ca5fde9a3f2787c6892a4fe1112/quick_sort
