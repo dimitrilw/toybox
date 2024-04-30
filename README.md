@@ -6,6 +6,11 @@ Various data-structures and other toys implemented in Mojo🔥.
 
 ![Mojo data structures](etc/toybox.png)
 
+## package
+
+1. Clone repo & cd into it.
+2. Run: `mojo package toybox/toybox -o /path/to/your/packages/toybox.mojopkg`
+
 ## disjoint set
 
 aka "union find", aka "merge find", aka "merge set", aka "disjoint set union (DSU)"
