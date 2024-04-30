@@ -20,11 +20,7 @@ to include them. The overhead is small.
 """
 
 struct DisjointSet(Sized):
-	""" DisjointSet represents a Disjoint Set (aka Union Find).
-
-		Usage:
-		# TODO: add usage examples
-	"""
+	""" DisjointSet represents a Disjoint Set (aka Union Find). """
 	var parents: List[Int]
 	var ranks: List[Int]
 	var sizes: List[Int]
@@ -37,7 +33,6 @@ struct DisjointSet(Sized):
 			Args:
 				size: Optional. The number of elements to initialize the DisjointSet with. Default = 0.
 		"""
-		# TODO: implement sizing at time of allocation, not via appending
 		self.parents = List[Int]()
 		self.ranks = List[Int]()
 		self.sizes = List[Int]()
@@ -68,9 +63,6 @@ struct DisjointSet(Sized):
 	fn set_ids(self) -> List[Int]:
 		""" Returns a list of set IDs where each ID is the parent node. """
 		var res = List[Int]()
-		# TODO: change to use enumerate when available
-		#       for i, p in enumerate(self.parents):
-		# 	        if i == p:
 		for i in range(len(self.parents)):
 			if self.parents[i] == i:
 				res.append(i)
@@ -92,13 +84,12 @@ struct DisjointSet(Sized):
 		var fID = self.find(fromID)
 		var dID = self.find(destID)
 		if fID == dID:
-			# from ID is already in destination ID ...or vice-versa
+			# from ID is already in destination ID, or vice-versa
 			return False
 		if self.ranks[fID] == self.ranks[dID]:
 			self.ranks[dID] += 1
 		if self.ranks[dID] < self.ranks[fID]:
-			# fromID is the higher-ranked ID.
-			# We will flip the IDs so the higher ranked ID is the destination.
+			# fromID is the higher-ranked ID; flip them
 			fID, dID = dID, fID
 		self.parents[fID] = dID
 		self.sizes[dID] += self.sizes[fID]
