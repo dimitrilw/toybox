@@ -26,6 +26,7 @@ fn test_is_valid() raises:
     assert_true(d.is_valid(9))
     assert_false(d.is_valid(10))
     assert_false(d.is_valid(99))
+    assert_false(d.is_valid(-1))
     print("PASS")
 
 
@@ -55,92 +56,66 @@ fn test_set_ids() raises:
     print("PASS")
 
 
+fn test_union() raises:
+    print("test_union: ", end="")
+    var d = DisjointSet(5)
+    var was_merged = d.union(0, 1)
+    assert_true(was_merged)
+    assert_equal(len(d), 4)
+
+    was_merged = d.union(0, 1)
+    assert_false(was_merged)
+    assert_equal(len(d), 4)
+    print("PASS")
+
+
+fn test_size() raises:
+    print("test_size: ", end="")
+    var d = DisjointSet(5)
+    _ = d.union(0, 1)
+    assert_equal(d.size(0), 2)
+    assert_equal(d.size(1), 2)
+    assert_equal(d.size(2), 1)
+    assert_equal(d.size(3), 1)
+    assert_equal(d.size(4), 1)
+    print("PASS")
+
+
+fn test_size_invalid() raises:
+    print("test_size_invalid: ", end="")
+    var d = DisjointSet(5)
+    assert_equal(d.size(9), 0)
+    print("PASS")
+
+
+fn test_find() raises:
+    print("test_find: ", end="")
+    var d = DisjointSet(5)
+    _ = d.union(0, 1)
+    assert_equal(d.find(0), d.find(1))
+    assert_equal(d.find(0), 1)
+    assert_equal(d.find(1), 1)
+    assert_equal(d.find(2), 2)
+    print("PASS")
+
+
+fn test_find_invalid() raises:
+    print("test_find_invalid: ", end="")
+    var d = DisjointSet(5)
+    assert_equal(d.find(9), -1)
+    print("PASS")
+
+
+
 fn main() raises:
     test_can_init_without_size()
     test_can_init_with_specified_size()
     test_is_valid()
     test_add()
     test_set_ids()
+    test_union()
+    test_size()
+    test_size_invalid()
+    test_find()
+    test_find_invalid()
     print("All tests passed!")
-
-
-""" TODO: convert this to Mojo
-
-func TestDisjointSet(t *testing.T) {
-    t.Run("Union", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        assert.Equal(t, d.Len(), 5)
-        var wasMerged bool
-
-        wasMerged = d.Union(0, 1)
-        assert.Equal(t, wasMerged, true)
-        assert.Equal(t, d.Len(), 4)
-
-        wasMerged = d.Union(0, 1)
-        assert.Equal(t, wasMerged, false)
-        assert.Equal(t, d.Len(), 4)
-    })
-    t.Run("Find", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        d.Union(0, 1)
-        assert.Equal(t, d.Len(), 4)
-        assert.Equal(t, d.Find(0), d.Find(1))
-    })
-    t.Run("Find Invalid", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        assert.Equal(t, d.Find(9), -1)
-    })
-    t.Run("Size", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        d.Union(0, 1)
-        assert.Equal(t, d.Len(), 4)
-        assert.Equal(t, d.Size(0), 2)
-    })
-    t.Run("Size Invalid", func(t *testing.T) {
-        d := NewDisjointSet(5)
-        assert.Equal(t, d.Size(9), 0)
-    })
-}
-
-// =============================================================================
-// Examples
-
-func ExampleDisjointSet() {
-    d := NewDisjointSet(3)
-    d.Union(0, 1) // true
-    d.Union(1, 2) // true
-    d.Len()       // 1
-    d.Add()       // 3
-    d.Add()       // 4
-    d.Union(3, 4) // true
-    d.Union(3, 4) // false
-    d.IsValid(2)  // true
-    d.IsValid(9)  // false
-    d.Len()       // 2
-    d.Find(0)     // 1
-    d.Size(4)     // 2
-    fmt.Println(d.SetIDs())
-    // Output: [1 4]
-}
-
-// =============================================================================
-// Benchmarks
-
-func BenchmarkDisjointSet(b *testing.B) {
-    for i := 0; i < b.N; i++ {
-        d := NewDisjointSet(3)
-        d.Union(0, 1)
-        d.Union(1, 2)
-        d.Len()
-        d.Add()
-        d.Add()
-        d.Union(3, 4)
-        d.Union(3, 4) // duplicate union; will not process
-        d.IsValid(2)
-        d.IsValid(9)
-        d.Find(0)
-        d.Size(4)
-        d.SetIDs()
-    }
-}
-"""

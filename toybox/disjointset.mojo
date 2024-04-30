@@ -24,7 +24,6 @@ struct DisjointSet(Sized):
 
 		Usage:
 		# TODO: add usage examples
-		```
 	"""
 	var parents: List[Int]
 	var ranks: List[Int]
@@ -76,78 +75,38 @@ struct DisjointSet(Sized):
 			if self.parents[i] == i:
 				res.append(i)
 		return res
+	
+	fn find(inout self, id: Int) -> Int:
+		""" Returns the root element of the set containing the given element. """
+		if not self.is_valid(id):
+			return -1
+		if self.parents[id] != id:
+			self.parents[id] = self.find(self.parents[id])
+		return self.parents[id]
+	
+	fn union(inout self, fromID: Int, destID: Int) -> Bool:
+		""" Union performs the union of two sets containing given elements
+			and returns true/false on whether or not a union action was completed.
+			If the two elements are already in the same set, then no union is performed.
+		"""
+		var fID = self.find(fromID)
+		var dID = self.find(destID)
+		if fID == dID:
+			# from ID is already in destination ID ...or vice-versa
+			return False
+		if self.ranks[fID] == self.ranks[dID]:
+			self.ranks[dID] += 1
+		if self.ranks[dID] < self.ranks[fID]:
+			# fromID is the higher-ranked ID.
+			# We will flip the IDs so the higher ranked ID is the destination.
+			fID, dID = dID, fID
+		self.parents[fID] = dID
+		self.sizes[dID] += self.sizes[fID]
+		self.num_sets -= 1
+		return True
 
-
-""" TODO: implement the rest of the DisjointSet class
-
-// Find returns root element of set containing given element.
-func (d *DisjointSet) Find(id int) int {
-	if !d.IsValid(id) {
-		return -1
-	}
-	if d.parents[id] != id {
-		d.parents[id] = d.Find(d.parents[id])
-	}
-	return d.parents[id]
-}
-
-// Size returns size of set containing given element.
-func (d *DisjointSet) Size(id int) int {
-	if !d.IsValid(id) {
-		return 0
-	}
-
-	return d.sizes[d.Find(id)]
-}
-
-/*
-Union performs the union of two sets containing given elements
-and returns true/false on whether or not a union action was completed.
-If the two elements are already in the same set, then no union is performed.
-
-The from/dest order is a matter of personal preference. I find that it makes
-code line-up better when I use it like this:
-
-	for pos := range listOfNewPositionsOfInterest {
-		posID := d.Add()
-		if pos.row == 0 {
-			d.Union(posID, topGroupID)
-		}
-		if pos.row == numRows - 1 {
-			d.Union(posID, bottomGroupID)
-		}
-		if pos.col == 0 {
-			d.Union(posID, leftGroupID)
-		}
-		if pos.col == numCols - 1 {
-			d.Union(posID, rightGroupID)
-		}
-	}
-
-Granted, this assumes I ensure the first merge into the "dest" groups (top, bottom, left, right)
-was done with that group's ID as the "dest" ID so that it has the highest rank. After that,
-order doesn't matter as much. I just find it easier to read when I do it this way.
-*/
-func (d *DisjointSet) Union(fromID, destID int) bool {
-	fromID = d.Find(fromID)
-	destID = d.Find(destID)
-	// from ID is already in destination ID ...or vice-versa
-	if fromID == destID {
-		return false
-	}
-
-	if d.ranks[fromID] == d.ranks[destID] {
-		d.ranks[destID]++
-	}
-
-	if d.ranks[destID] < d.ranks[fromID] {
-		// fromID is the higher-ranked ID.
-		// User had from/dest flipped, and we'll merge anyway.
-		fromID, destID = destID, fromID
-	}
-	d.parents[fromID] = destID
-	d.sizes[destID] += d.sizes[fromID]
-	d.numSets--
-	return true
-}
-"""
+	fn size(inout self, id: Int) -> Int:
+		""" Returns the size of the set containing the given element. """
+		if not self.is_valid(id):
+			return 0
+		return self.sizes[self.find(id)]
