@@ -33,9 +33,9 @@ struct DisjointSet(Sized):
 			Args:
 				size: Optional. The number of elements to initialize the DisjointSet with. Default = 0.
 		"""
-		self.parents = List[Int]()
-		self.ranks = List[Int]()
-		self.sizes = List[Int]()
+		self.parents = List[Int](capacity=size)
+		self.ranks = List[Int](capacity=size)
+		self.sizes = List[Int](capacity=size)
 		self.num_sets = size
 		for i in range(size):
 			self.parents.append(i)
