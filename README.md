@@ -29,8 +29,5 @@ provide an example use.
 
 ## external dependencies
 
-Until Mojo has a package manager, this repository notes dependencies here.
-
-### quicksort.📦
-
-Source: https://github.com/mzaks/mojo-sort/tree/5b2aa6b436908ca5fde9a3f2787c6892a4fe1112/quick_sort
+Until Mojo has a mature package manager, this repository keeps dependencies in
+the `external/` directory.
