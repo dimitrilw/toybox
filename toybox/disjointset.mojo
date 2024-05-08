@@ -1,22 +1,22 @@
-"""
-A Disjoint Set (aka Union Find or DSU) data structure is commonly used for merging
-sets of data as commonalities are found.
+""" A Disjoint Set (aka Union Find or DSU) data structure is commonly used 
+	for merging sets of data as commonalities are found.
 
-Example use:
+	Example uses:
 
-	Here is a list of coordinates of interest. Add a new coordinate & if it is touching a neighbor,
-	then merge them into one set. If it is touching multiple, merge them all, one-by-one.
+		Here is a list of coordinates of interest. Add a new coordinate & if it 
+		is touching a neighbor, then merge them into one set. If it is touching 
+		multiple, merge them all, one-by-one.
 
-	Find loops in a graph by trying to merge nodes & if `DisjointSet.Union()` returns `false`,
-	then you know you hit a loop because they are already in the same set.
+		Find loops in a graph by trying to merge nodes & if `DisjointSet.Union()` 
+		returns `false`, then you know you hit a loop because they are already 
+		in the same set.
 
-	Social network groups merging together into a single set.
+		Social network groups merging together into a single set.
 
-...and more.
+		...and more.
 
-While Len, Size, and SetIDs are not typically used, they are provided for convenience.
-I encounter the requirement to calculate these values often enough that I decided
-to include them. The overhead is small.
+	While `len`, `size`, and `set_ids` are not commonly required,
+	they are provided for convenience.
 """
 
 struct DisjointSet(Sized):
@@ -31,7 +31,7 @@ struct DisjointSet(Sized):
 		""" Initializes a new DisjointSet with `size` elements and IDs 0 to `size - 1`. 
 
 			Args:
-				size: Optional. The number of elements to initialize the DisjointSet with. Default = 0.
+				size: Optional. Default = 0. The number of elements when the DisjointSet is created.
 		"""
 		self.parents = List[Int](capacity=size)
 		self.ranks = List[Int](capacity=size)
