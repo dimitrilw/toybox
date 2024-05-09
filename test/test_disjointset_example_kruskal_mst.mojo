@@ -59,7 +59,7 @@ fn minimum_cost(n: Int, owned connections: List[List[Int]], index_offset: Int = 
 
     The cost is the sum of the connections' costs used.
 """
-fn test_disjointset_kruskal_mst_case_1() raises:
+def test_disjointset_kruskal_mst_case_1():
     """ TEST CASE 1
         Input: n = 3, connections = [[1,2,5],[1,3,6],[2,3,1]]
         Output: 6
@@ -72,7 +72,7 @@ fn test_disjointset_kruskal_mst_case_1() raises:
     var want = 6
     assert_equal(got, want)
 
-fn test_disjointset_kruskal_mst_case_2() raises:
+def test_disjointset_kruskal_mst_case_2():
     """ TEST CASE 2
         Input: n = 4, connections = [[1,2,3],[3,4,4]]
         Output: -1
@@ -85,7 +85,7 @@ fn test_disjointset_kruskal_mst_case_2() raises:
     var want = -1
     assert_equal(got, want)
 
-fn main() raises:
+def main():
     test_disjointset_kruskal_mst_case_1()
     test_disjointset_kruskal_mst_case_2()
     print("disjointset_kruskal_mst: All tests passed")
