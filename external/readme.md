@@ -5,4 +5,5 @@ then you may wish to place these into your import path.
 
 ## quicksort.📦
 
-Source: https://github.com/mzaks/mojo-sort/tree/5b2aa6b436908ca5fde9a3f2787c6892a4fe1112/quick_sort
+Source:
+https://github.com/mzaks/mojo-sort/tree/ec88eeb4f7488673a46ae25e23f82fe1288e7a95/quick_sort
