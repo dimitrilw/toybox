@@ -84,8 +84,3 @@ def test_disjointset_kruskal_mst_case_2():
     var got = minimum_cost(n, connections, index_offset=1)
     var want = -1
     assert_equal(got, want)
-
-def main():
-    test_disjointset_kruskal_mst_case_1()
-    test_disjointset_kruskal_mst_case_2()
-    print("disjointset_kruskal_mst: All tests passed")
