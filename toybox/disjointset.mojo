@@ -20,7 +20,8 @@
 """
 
 struct DisjointSet(Sized):
-	""" DisjointSet represents a Disjoint Set (aka Union Find). """
+	""" DisjointSet represents a Disjoint Set (aka Union Find).
+	"""
 	var parents: List[Int]
 	var ranks: List[Int]
 	var sizes: List[Int]
@@ -28,10 +29,10 @@ struct DisjointSet(Sized):
 
 
 	fn __init__(inout self, size: Int = 0):
-		""" Initializes a new DisjointSet with `size` elements and IDs 0 to `size - 1`. 
+		""" Initializes a new DisjointSet with `size` elements and IDs 0 to `size - 1`.
 
-			Args:
-				size: Optional. Default = 0. The number of elements when the DisjointSet is created.
+		Args:
+			size: Optional. Default = 0. The number of elements when the DisjointSet is created.
 		"""
 		self.parents = List[Int](capacity=size)
 		self.ranks = List[Int](capacity=size)
@@ -44,15 +45,18 @@ struct DisjointSet(Sized):
 
 	
 	fn __len__(self) -> Int:
-		""" Returns the number of sets in the DisjointSet. """
+		""" Returns the number of sets in the DisjointSet.
+		"""
 		return self.num_sets
 	
 	fn is_valid(self, id: Int) -> Bool:
-		""" Checks if the given ID is a valid int for the DisjointSet's current state. """
+		""" Checks if the given ID is a valid int for the DisjointSet's current state.
+		"""
 		return 0 <= id < len(self.parents)
 	
 	fn add(inout self) -> Int:
-		""" Adds a new element to the DisjointSet and returns that element's ID. """
+		""" Adds a new element to the DisjointSet and returns that element's ID.
+		"""
 		var id = len(self.parents)
 		self.parents.append(id)
 		self.ranks.append(0)
@@ -61,7 +65,8 @@ struct DisjointSet(Sized):
 		return id
 	
 	fn set_ids(self) -> List[Int]:
-		""" Returns a list of set IDs where each ID is the parent node. """
+		""" Returns a list of set IDs where each ID is the parent node.
+		"""
 		var res = List[Int]()
 		for i in range(len(self.parents)):
 			if self.parents[i] == i:
@@ -69,7 +74,8 @@ struct DisjointSet(Sized):
 		return res
 	
 	fn find(inout self, id: Int) -> Int:
-		""" Returns the root element of the set containing the given element. """
+		""" Returns the root element of the set containing the given element.
+		"""
 		if not self.is_valid(id):
 			return -1
 		if self.parents[id] != id:
@@ -97,7 +103,8 @@ struct DisjointSet(Sized):
 		return True
 
 	fn size(inout self, id: Int) -> Int:
-		""" Returns the size of the set containing the given element. """
+		""" Returns the size of the set containing the given element.
+		"""
 		if not self.is_valid(id):
 			return 0
 		return self.sizes[self.find(id)]
