@@ -17,9 +17,9 @@ Various data-structures and other toys implemented in Mojo🔥.
 
 aka "union find", aka "merge find", aka "merge set", aka "disjoint set union (DSU)"
 
-```mojo
-from toybox import DisjointSet
-```
+### heap (priority queue)
+
+aka "binary heap", aka "min heap", aka "max heap"
 
 ## example use
 
