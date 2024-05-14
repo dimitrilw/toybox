@@ -19,7 +19,7 @@ fn push[T: HeapableCollectionElement](inout heap: List[T], item: T) -> None:
 fn pop[T: HeapableCollectionElement](inout heap: List[T]) raises -> T:
     """ Pop the smallest item off the heap.
     """
-    var last_item = heap.pop() # raises appropriate IndexError if heap is empty
+    var last_item = heap.pop()
     if heap:
         var return_item = heap[0]
         heap[0] = last_item
@@ -30,10 +30,10 @@ fn pop[T: HeapableCollectionElement](inout heap: List[T]) raises -> T:
 fn replace[T: HeapableCollectionElement](inout heap: List[T], item: T) raises -> T:
     """ Pop and return the current smallest value, and add the new item.
     """
-    var return_item = heap[0] # raises appropriate IndexError if heap is empty
+    var res = heap[0]
     heap[0] = item
     _sift_up[T](heap, 0)
-    return return_item
+    return res
 
 fn push_pop[T: HeapableCollectionElement](inout heap: List[T], item: T) -> T:
     """ Fast version of a push followed by a pop.
@@ -49,11 +49,10 @@ fn heapify[T: HeapableCollectionElement](inout heap: List[T]) -> None:
         O(len(x)) time.
     """
     var n = len(heap)
-    # TODO: does 'reversed' work here? That's from python; work with Mojo?
     for i in reversed(range(n//2)):
         _sift_up[T](heap, i)
 
-# @inline # TODO: make inline? Benchmark to compare performance.
+@always_inline
 fn _sift_down[T: HeapableCollectionElement](inout heap: List[T], start_pos: Int, pos: Int) -> None:
     """ Helper function to move the item at pos down to its correct position.
     """
@@ -69,7 +68,7 @@ fn _sift_down[T: HeapableCollectionElement](inout heap: List[T], start_pos: Int,
         break
     heap[p] = new_item
 
-# @inline # TODO: make inline? Benchmark to compare performance.
+@always_inline
 fn _sift_up[T: HeapableCollectionElement](inout heap: List[T], pos: Int) -> None:
     """ Helper function to move the item at pos up to its correct position.
     """
