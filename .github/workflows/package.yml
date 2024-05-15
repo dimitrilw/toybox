@@ -26,12 +26,12 @@ jobs:
         run: echo "/home/runner/.modular/pkg/packages.modular.com_mojo/bin" >> $GITHUB_PATH
 
       - name: Create package
-        run: mojo package src -o Mojo-UI.mojopkg
+        run: mojo package toybox -o toybox.mojopkg
 
       - name: Upload package to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.TOKEN }}
-          file: Mojo-UI.mojopkg
+          file: toybox.mojopkg
           tag: latest-build
           overwrite: true
