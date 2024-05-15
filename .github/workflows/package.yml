@@ -31,7 +31,10 @@ jobs:
       - name: Upload package to release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          # note: token is date-limited and restricted to appropriate repositories
+          # and permissions required by the workflow
+          # ref: https://github.com/svenstaro/upload-release-action
+          repo_token: ${{ secrets.TOKEN_TO_PUBLISH_MOJOPKG_VIA_WORKFLOW }}
           file: toybox.mojopkg
           tag: latest-build
           overwrite: true
