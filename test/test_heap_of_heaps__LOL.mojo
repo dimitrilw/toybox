@@ -1,5 +1,6 @@
-""" A real-life friend asked if this was possible. I said "yes". 
-    He said "prove it." And because I thought it was funny: challenge accepted.
+""" A real-life friend asked if this HeapableCollectionElement concept makes it 
+    possible to create a Heap of Heaps. I said "yes". He said "prove it." 
+    And because I thought it was funny: challenge accepted.
 
     Why would you ever want to do this? I have no idea. But it's possible.
 """

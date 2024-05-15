@@ -1,1 +1,6 @@
 /.vscode/
+
+# Sometimes I temporarily add an empty __init__.py file to the test directory 
+# to make it a package. This helps the VS-Code extension find the importable 
+# local package and allow the LSP to function properly.
+/test/__init__.mojo
