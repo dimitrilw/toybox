@@ -2,7 +2,7 @@
 
 Various data-structures and other toys implemented in Mojo🔥.
 
-![Mojo Nightly 2024.5.822](https://img.shields.io/badge/Mojo%F0%9F%94%A5-Nightly_2024.5.822-purple)
+![Mojo Nightly 2024.5.1515](https://img.shields.io/badge/Mojo%F0%9F%94%A5-Nightly_2024.5.1515-purple)
 
 ![Mojo data structures](etc/toybox.png)
 
@@ -25,7 +25,7 @@ aka "binary heap", aka "min heap", aka "max heap"
 
 See the tests directory. While files like `test_disjointset.mojo` are just testing
 the DisjointSet implementation, files like `test_disjointset_example_kruskal_mst.mojo`
-provide an example use.
+provide an example usage.
 
 ## external dependencies
 

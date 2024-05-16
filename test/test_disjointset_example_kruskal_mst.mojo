@@ -1,7 +1,17 @@
-# """ Kruskal's algorithm for Minimum Spanning Tree (MST) using DisjointSet.
-# 
-#     https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
-# """
+""" Kruskal's algorithm for Minimum Spanning Tree (MST) using DisjointSet.
+
+    https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+
+    Please note: this example has an external dependency (quick_sort). Until Mojo has a
+    full-featured package manager, I will occasionally forget to update that dependency
+    while working on other sections of toybox. The result is that this example is a bit
+    fragile, and may not work as expected if the quick_sort module is not up-to-date.
+    I will do my best to keep all examples in sync, but please be aware that if this
+    specific example breaks, I will try to fix it as soon as possible.
+
+    When we have a full-featured package manager, package hosting service, etc.,
+    then this example will be updated to use that system, and this note will be removed.
+"""
 
 from testing import assert_equal
 from toybox import DisjointSet

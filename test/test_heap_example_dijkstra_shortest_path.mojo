@@ -6,26 +6,33 @@
 from testing import assert_equal
 from toybox import heap
 
-alias dirs = List[(Int, Int)]((0, 1), (0, -1), (1, 0), (-1, 0))
-
 @value
 struct Pos:
     var row: Int
     var col: Int
 
+    fn __str__(self) -> String:
+        return str("Pos(row=" + str(self.row) + ", col=" + str(self.col) + ")")
+
+alias dirs = List[Pos](
+    Pos(-1, 0), # up
+    Pos(1, 0),  # down
+    Pos(0, -1), # left
+    Pos(0, 1),  # right
+)
+
 fn calc_manhattan_dist_to_thief(grid: List[List[Int]]) -> List[List[Int]]:
     """ BFS pass through the grid to calculate the Manhattan distance 
         from each cell to the nearest thief.
     """
-    var res = List[List[Int]]()
-
     alias NOT_CALCULATED = -1
     var rows = len(grid)
     var cols = len(grid[0])
     # TODO: convert to a list-comprehension, when supported in Mojo
+
+    # build a result grid with the same dimensions as the input grid
+    var res = List[List[Int]]()
     for _ in grid:
-        # build a result grid with the same dimensions as the input grid,
-        # but filled with NOT_CALCULATED values
         var new_row = List[Int]()
         for _ in range(cols):
             new_row.append(NOT_CALCULATED)
@@ -45,12 +52,11 @@ fn calc_manhattan_dist_to_thief(grid: List[List[Int]]) -> List[List[Int]]:
 
         var safety_score = res[p.row][p.col]
 
-        for dir in dirs:
+        for i in range(len(dirs)):
             var new_pos = Pos(
-                p.row + dir[][0],
-                p.col + dir[][1],
+                p.row + dirs[i].row,
+                p.col + dirs[i].col,
             )
-
             if (
                 0 <= new_pos.row < rows # row index is valid
                 and 0 <= new_pos.col < cols # col index is valid
@@ -81,7 +87,7 @@ fn maximum_safeness_factor(grid: List[List[Int]]) raises -> Int:
         return 0
     var safety_scores = calc_manhattan_dist_to_thief(grid)
 
-    # TODO: convert to a list-comprehension, when supported in Mojo
+    # build a visited grid with the same dimensions as the input grid
     var visited = List[List[Bool]]()
     for _ in grid:
         var new_row = List[Bool]()
@@ -104,10 +110,10 @@ fn maximum_safeness_factor(grid: List[List[Int]]) raises -> Int:
         
         visited[cell.pos.row][cell.pos.col] = True
 
-        for dir in dirs:
+        for i in range(len(dirs)):
             var new_pos = Pos(
-                cell.pos.row + dir[][0],
-                cell.pos.col + dir[][1],
+                cell.pos.row + dirs[i].row,
+                cell.pos.col + dirs[i].col,
             )
 
             if (
@@ -154,7 +160,6 @@ def test_heap_dijkstra_shortest_path_case_1():
         and (n - 1, n - 1).
     """
     var grid = List(List(1, 0, 0), List(0, 0, 0), List(0, 0, 1))
-
     var got = maximum_safeness_factor(grid)
     var want = 0
     assert_equal(got, want)
@@ -188,9 +193,3 @@ def test_heap_dijkstra_shortest_path_case_3():
     var got = maximum_safeness_factor(grid)
     var want = 2
     assert_equal(got, want)
-
-# TODO: remove this main; I just put it here so I can quickly run single test case manually while debugging
-def main():
-    test_heap_dijkstra_shortest_path_case_1()
-    # test_heap_dijkstra_shortest_path_case_2()
-    # test_heap_dijkstra_shortest_path_case_3()
